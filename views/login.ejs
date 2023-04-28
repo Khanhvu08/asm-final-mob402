@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Helica Management
+	</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<link rel="shortcut icon" href="images/avatar.svg" type="image/x-icon">
+	<link rel="stylesheet" href="stylesheets/main.css">
+	<link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+</head>
+
+<body>
+	<img class="wave" src="images/wave.png">
+	<div class="container">
+		<div class="img">
+			<img src="images/bg.svg">
+		</div>
+		<div class="login-content">
+			<form method="post" action="/">
+				<img src="images/avatar.svg">
+				<h2 class="title">Welcome </h2>
+				<span id="errorLogin"></span>
+				<% if (login=='false' ){ %>
+					<span id="errLG">Sai mật khẩu</span>
+					<%}%>
+						<% if (login=='null' ){ %>
+							<span id="errLG">Tài khoản không tồn tại</span>
+							<%}%>
+								<div class="input-div one">
+									<div class="i">
+										<i class="fas fa-user"></i>
+									</div>
+									<div class="div">
+										<input type="text" name="usr" placeholder="Email" class="inputUsr">
+									</div>
+								</div>
+								<div class="input-div pass">
+									<div class="i">
+										<i class="fas fa-lock"></i>
+									</div>
+									<div class="div">
+										<input type="password" placeholder="Password" name="pwd" class="inputPwd">
+									</div>
+								</div>
+								<input type="submit" class="btn" value="Sign in">
+								<div class="register">
+									<h6>Dont have account? </h6>
+									<a class="btn-register text-decoration-none" href="register">Sign up</a>
+								</div>
+
+			</form>
+		</div>
+	</div>
+</body>
+<script src="/javascript/bootstrap.min.js"></script>
+<script src="/javascript/index.js"></script>
+
+</html>

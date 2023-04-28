@@ -1,0 +1,42 @@
+<%- include('../../inc/top') %>
+  <div class="container-fluid ">
+    <div class="table-responsive">
+      <table class="table table-striped border text-center ">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Product Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (const item of Object.values(data)) { %>
+            <tr>
+              <td>
+                <%= item.username.fullName %>
+              </td>
+              <td>
+                <%= item.userEmail.email %>
+              </td>
+              <td>
+                <%= item.productName.productName %>
+              </td>
+              <td>
+                <%= item.quantity %>
+              </td>
+              <td>
+                <%= item.productPrice.productPrice %>
+              </td>
+              <td>
+                <%= item.quantity * item.productPrice.productPrice %>
+              </td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%- include('../../inc/bottom') %>

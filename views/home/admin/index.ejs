@@ -1,0 +1,205 @@
+<%- include('../../inc/top') %>
+    <div class="d-flex justify-content-end me-4 mb-4">
+
+        <form action="/products/result" method="GET">
+            <input type="text" title="name" name="search_query" id="search_query" placeholder="Search products...">
+            <button type="submit" id="btn_Search">Search</button>
+            <br>
+            <span id="errorSearch" class="text-danger fw-bold"></span>
+
+        </form>
+        </div>
+        <div class="container-fluid ">
+            <div class="table-responsive">
+                <table class="table table-striped border text-center ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Product Price</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Product Color</th>
+                            <th scope="col">Product Type</th>
+                            <th scope="col" colspan="2" class="d-none d-md-table-cell">Edit</th>
+                    </thead>
+                    <tbody>
+                        <% if(data.length==0) {%>
+                            <td colspan="8">
+                                <h5 class="text-danger fw-bold">List is empty</h5>
+                            </td>
+                            <%} else{%>
+                                <% for (const item of data) { %>
+                                    <tr>
+                                        <td>
+                                            <%= item.productName%>
+                                        </td>
+                                        <td>
+                                            <%= item.productPrice %>$
+                                        </td>
+                                        <td>
+
+                                            <img src=" <%= item.imgProduct %>" alt="" width="80" height="80">
+                                        </td>
+                                        <td>
+                                            <%= item.productColor %>
+                                        </td>
+                                        <td>
+                                            <%= item.productType %>
+                                        </td>
+
+                                        <td class="d-none d-md-table-cell">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#updateProduct_<%=item._id%>">
+                                                Update
+                                            </button>
+                                        <td class="d-none d-md-table-cell">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal_<%=item._id%>">
+                                                Delete
+                                            </button>
+                                        </td>
+
+
+                                    </tr>
+                                    <% } %>
+                                        <%}%>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProduct">
+                Add product
+            </button>
+            <button type="button" class="btn btn-danger d-md-none" data-bs-toggle="modal" data-bs-target="#openEdit">
+                Edit Product
+            </button>
+
+        </div>
+
+
+        <!-- Modal Add -->
+        <div class="modal fade " id="addProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add new product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/products/addProduct" enctype="multipart/form-data" method="post">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Name</label>
+                                <input type="text" class="form-control " id="productName" name="productName"
+                                    placeholder="Jordan Nike Force One">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Price</label>
+                                <input type="text" class="form-control" min="0" id="productPrice" name="productPrice"
+                                    placeholder="100">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label ">Image</label>
+                                <br>
+                                <input type="file" name="imgProduct" id="files">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Color</label>
+                                <input type="text" class="form-control" name="productColor" id="productColor"
+                                    placeholder="Red">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Product Type </label>
+                                <input type="text" class="form-control" name="productType" id="productType"
+                                    placeholder="Shoe">
+                            </div>
+
+                            <span id="error" class="text-danger fw-bold"></span>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="btn-add-product" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- UPDATE MODAl -->
+        <% for (const item of data) { %>
+            <div class="modal fade " id="updateProduct_<%=item._id%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/products/updateProduct" enctype="multipart/form-data" method="post">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="updateName" name="productName"
+                                        value="<%=item.productName%>" placeholder="Jordan Nike Force One">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Price</label>
+                                    <input type="text" class="form-control" value="<%=item.productPrice %>" min="0"
+                                        id="updatePrice" name="productPrice" placeholder="100">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label ">Image</label>
+                                    <br>
+                                    <input type="file" value="<%=item.imgProduct%>" name="imgProduct" id="files">
+                                    <img src="<%=item.imgProduct%>" id="img" style="width: 150px;height: 250px;" alt="">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Color</label>
+                                    <input type="text" class="form-control" value="<%=item.productColor %>"
+                                        name="productColor" id="updateColor" placeholder="Red">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Product Type </label>
+                                    <input type="text" class="form-control" value="<%=item.productType %>"
+                                        name="typeUpdate" id="updateType" placeholder="Shoe">
+                                </div>
+                                <span id="errorModalUpdate" class="text-danger fw-bold"></span>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="id" value="<%= item._id %>">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" id="btn-update-product"
+                                        class="btn btn-primary">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+                <!-- DELETE MODAL -->
+                <% for (const item of data) { %>
+                    <div class="modal fade " id="deleteModal_<%=item.id%>" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog ">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-danger" id="exampleModalLabel">Are you sure you want to
+                                        delete?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="/products/deleteProduct" method="post">
+                                    <input type="hidden" name="id" value=" <%= item._id %>">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" id="btn-delete-product"
+                                            class="btn btn-primary">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+
+                        <%- include('../../inc/bottom') %>

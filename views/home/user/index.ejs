@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="images/avatar.svg" type="image/x-icon">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    Helica Management
+  </title>
+  <link rel="stylesheet" href="/fontawesome/css/all.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand " style="color: #33C393;font-weight: 500;" href="/products">Helica</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-data[0]">
+            <a class="nav-link" href="/users">User</a>
+          </li>
+          <li class="nav-data[0]">
+            <a class="nav-link" href="/invoices">Invoice</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <a class="nav-link" href="logout"> <i class="fa fa-right-from-bracket"></i> Logout</a>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid d-flex justify-content-center mt-5 align-data[0]s-center">
+    <div class="card" style="width: 25rem;">
+      <img
+        src="https://lumiere-a.akamaihd.net/v1/images/p_disneymovies_avatarthewayofwater_1710_b7d39b03.jpeg?region=0%2C0%2C540%2C810"
+        class="card-img-top" alt="...">
+      <div class="card-body text-center">
+        <h5 class="card-title">Full Name: <%=data[0].fullName%>
+        </h5>
+        <p class="card-text">Email: <%=data[0].email%>
+        </p>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#updateUser_<%=data[0]._id%>">Update</button>
+        <p>
+          <%=data[0]._id%>
+        </p>
+      </div>
+    </div>
+
+
+    <div class="modal fade " id="updateUser_<%=data[0]._id%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog ">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update user</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/users/updateUsers" method="post">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Name</label>
+                <input type="text" class="form-control" id="updateName" name="updateName" value="<%=data[0].fullName%>"
+                  placeholder="Nguyen Van A">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                <input type="email" class="form-control" value="<%=data[0].email %>" id="updateEmail"
+                  name="updateEmail">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label ">New Password</label>
+                <input type="password" class="form-control" name="UNewPassword" id="UNewPassword">
+              </div>
+              <!-- <div class="mb-3">
+                          <label for="exampleFormControlInput1" class="form-label ">Re-Password</label>
+                          <input type="password" class="form-control" name="URe-password" id="URe-password">
+                      </div> -->
+              <span id="errorModalUser" class="text-danger fw-bold"></span>
+
+              <div class="modal-footer">
+                <input type="hidden" name="_id" value="<%= data[0]._id %>">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" id="btnUpdateUser" class="btn btn-primary">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('../../inc/bottom') %>
