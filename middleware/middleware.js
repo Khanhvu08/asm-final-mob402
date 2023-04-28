@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const myModel = require("../models/Product");
 const UserModel = require("../models/User");
-const myInvoiceModel = require("../models/invoice");
+const myInvoiceModel = require("../models/Invoice");
 
 exports.verifyToken = (req, res, next) => {
   const token = req.session.token;

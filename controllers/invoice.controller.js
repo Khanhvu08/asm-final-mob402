@@ -1,5 +1,5 @@
 exports.renderInvoice = async (req, res) => {
-  const myInvoiceModel = require("../models/invoice");
+  const myInvoiceModel = require("../models/Invoice");
   try {
     let allInvoices = await myInvoiceModel
       .find({})
